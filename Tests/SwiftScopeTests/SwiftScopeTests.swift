@@ -6,13 +6,6 @@ import OHHTTPStubsSwift
 final class SwiftScopeTests: XCTestCase {
     private let headers = ["Content-Type": "application/json"]
     
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(SwiftScope().text, "Hello, World!")
-    }
-    
     func testGetBasiceVehicle() async throws {
         let path = OHPathForFileInBundle("BasicVehicle.json", Bundle.module)
         

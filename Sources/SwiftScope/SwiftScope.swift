@@ -1,7 +1,6 @@
 import Foundation
 
 public struct SwiftScope {
-    public private(set) var text = "Hello, World!"
     public enum SwiftScopeError: Error, Equatable {
         case noVehicleSelected
     }
