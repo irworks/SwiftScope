@@ -15,6 +15,5 @@ swiftScope.setApiKey("yourapikey")
 
 ### Fetch your vehicle
 ```swift
-let service = SwiftScope()
-let vehicle: BasicVehicle = try await service.getBasicVehicle(vehicleId: "corsair")
+let vehicle: BasicVehicle = try await swiftScope.getBasicVehicle(vehicleId: "corsair")
 ```
