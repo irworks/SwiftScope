@@ -1,0 +1,32 @@
+{
+    "code": 200,
+    "response": {
+        "name": "Testulus",
+        "public_id": "corsair",
+        "odometer": 85808.62,
+        "model": "Model 3",
+        "trim": "Performance",
+        "year": "2018",
+        "car_version": "2022.45.12",
+        "battery": {
+            "level": 33,
+            "range": "90.65"
+        },
+        "climate": {
+            "inside": 76.1,
+            "outside": 75.2
+        },
+        "statistics": {
+            "drives": 3947,
+            "distance": 71019.53,
+            "drives_duration": 8396078,
+            "charges": 717,
+            "supercharging": 542,
+            "charges_duration": 13403931,
+            "charges_kwh": 23458.37,
+            "joined": "3 years 48 weeks",
+            "hw": "3.0"
+        },
+        "render_url": "https://teslascope.com/render-vehicle/corsair/large"
+    }
+}
