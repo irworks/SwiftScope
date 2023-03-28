@@ -57,4 +57,22 @@ final class SwiftScopeTests: XCTestCase {
         XCTAssertEqual("Red", vehicle.vehicle?.config?.color!)
         XCTAssertEqual("Red Multicoat", vehicle.vehicle?.config?.colorName!)
     }
+    
+    func testGetDrivingSession() async throws {
+        let path = OHPathForFileInBundle("DrivingSession.json", Bundle.module)
+        
+        _ = stub(condition: isPath("/api/vehicle/Xzng/drive/3685708")) {
+            _ in
+            return fixture(filePath: path!, headers: self.headers)
+        }
+                
+        let service = SwiftScope()
+        let drive: DrivingSession = try await service.getDrivingSession(vehicleId: "Xzng", driveId: 3685708)
+        
+        XCTAssertNil(drive.name)
+        XCTAssertNil(drive.description)
+        XCTAssertEqual("3.390000", drive.distance)
+        XCTAssertEqual(1140, drive.duration)
+        XCTAssertEqual("D", drive.progress[0].shiftState)
+    }
 }
