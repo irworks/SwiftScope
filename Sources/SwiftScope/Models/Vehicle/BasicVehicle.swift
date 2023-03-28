@@ -12,11 +12,158 @@ public struct BasicVehicle: Codable {
     public var publicId: String
     public var odometer: Double
     public var model: String
-
+    public var year: String?
+    public var trim: String?
+    public var carVersion: String
+    public var battery: Battery
+    public var climate: Climate
+    public var statistics: Statistics
+    public var vehicle: Vehicle?
+    
+    public var renderUrl: String?
+    
     enum CodingKeys: String, CodingKey {
         case name
         case publicId = "public_id"
         case odometer
         case model
+        case year
+        case trim
+        case carVersion = "car_version"
+        case battery
+        case climate
+        case statistics
+        case vehicle
+        case renderUrl = "render_url"
+    }
+}
+
+public struct Battery: Codable {
+    public var level: Int
+    public var range: String
+    public var chargeLimitSoC: Int?
+    public var chargingState: String?
+    public var timeRemaining: String?
+    public var scheduledChargingPending: Bool?
+    public var scheduledChargingStartTime: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case level
+        case range
+        case chargeLimitSoC = "charge_limit_soc"
+        case chargingState = "charging_state"
+        case timeRemaining = "time_remaining"
+        case scheduledChargingPending = "scheduled_charging_pending"
+        case scheduledChargingStartTime = "scheduled_charging_start_time"
+    }
+}
+
+public struct Climate: Codable {
+    public var inside: Double
+    public var outside: Double
+    public var isAutoConditioningOn: Bool?
+    public var isClimateOn: Bool?
+    public var isFrontDefrosterOn: Bool?
+    public var isRearDefrosterOn: Bool?
+    public var seatHeaters: SeatHeaters?
+    
+    enum CodingKeys: String, CodingKey {
+        case inside
+        case outside
+        case isAutoConditioningOn = "is_auto_conditioning_on"
+        case isClimateOn = "is_climate_on"
+        case isFrontDefrosterOn = "is_front_defroster_on"
+        case isRearDefrosterOn = "is_rear_defroster_on"
+        case seatHeaters = "seat_heaters"
+    }
+}
+
+public struct SeatHeaters: Codable {
+    public var left: Int
+    public var right: Int
+    public var leftRear: Int
+    public var centerRear: Int
+    public var rightRear: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case left
+        case right
+        case leftRear = "left_rear"
+        case centerRear = "center_rear"
+        case rightRear = "right_rear"
+    }
+}
+
+public struct Statistics: Codable {
+    public var drives: Int
+    public var distance: Double
+    public var drivesDuration: Int
+    public var charges: Int
+    public var supercharging: Int
+    public var chargesDuration: Int
+    public var chargesKwh: Double
+    public var joined: String
+    public var hw: String
+    
+    enum CodingKeys: String, CodingKey {
+        case drives
+        case distance
+        case drivesDuration = "drives_duration"
+        case charges
+        case supercharging
+        case chargesDuration = "charges_duration"
+        case chargesKwh = "charges_kwh"
+        case joined
+        case hw
+    }
+}
+
+public struct Vehicle : Codable {
+    let locked : Bool
+    let sentryMode : Bool?
+    let latitude : String?
+    let longitude : String?
+    let isUserPresent : Bool
+    let windows : Windows?
+    let config : VehicleConfig?
+
+    enum CodingKeys: String, CodingKey {
+        case locked
+        case sentryMode = "sentry_mode"
+        case latitude
+        case longitude
+        case isUserPresent = "is_user_present"
+        case windows
+        case config
+    }
+}
+
+public struct Windows : Codable {
+    let driverFront : Bool?
+    let driverRear : Bool?
+    let passengerFront : Bool?
+    let passengerRear : Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case driverFront = "driver_front"
+        case driverRear = "driver_rear"
+        case passengerFront = "passenger_front"
+        case passengerRear = "passenger_rear"
+    }
+}
+
+public struct VehicleConfig : Codable {
+    let color : String?
+    let colorName : String?
+    let wheels : String?
+    let spoiler : String?
+    let roofColor : String?
+
+    enum CodingKeys: String, CodingKey {
+        case color
+        case colorName = "color_name"
+        case wheels
+        case spoiler
+        case roofColor = "roof_color"
     }
 }

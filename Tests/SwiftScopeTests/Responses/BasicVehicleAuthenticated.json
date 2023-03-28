@@ -1,0 +1,68 @@
+{
+  "code": 200,
+  "response": {
+    "name": "Testulus Auth",
+    "public_id": "corsair",
+    "odometer": 29642.56,
+    "model": "Model 3",
+    "trim": "Performance",
+    "year": "2018",
+    "car_version": "2020.16.2.1",
+    "battery": {
+      "level": 42,
+      "range": "122.62",
+      "charge_limit_soc": 81,
+      "charging_state": "Disconnected",
+      "minutes_remaining": 0,
+      "time_remaining": "0.00",
+      "scheduled_charging_pending": false,
+      "scheduled_charging_start_time": null
+    },
+    "climate": {
+      "inside": 77.2,
+      "outside": 76.1,
+      "is_auto_conditioning_on": false,
+      "is_climate_on": false,
+      "is_front_defroster_on": true,
+      "is_rear_defroster_on": false,
+      "seat_heaters": {
+        "left": 0,
+        "right": 0,
+        "left_rear": 0,
+        "center_rear": 0,
+        "right_rear": 0
+      }
+    },
+    "statistics": {
+      "drives": 1080,
+      "distance": 16490.14,
+      "drives_duration": 1590554,
+      "charges": 7,
+      "supercharging": 0,
+      "charges_duration": 311221,
+      "charges_kwh": 125.97,
+      "joined": "56 weeks and 1 days",
+      "hw": "3.0"
+    },
+    "vehicle": {
+      "locked": true,
+      "sentry_mode": false,
+      "latitude": "[redacted]",
+      "longitude": "[redacted]",
+      "is_user_present": false,
+      "windows": {
+        "driver_front": false,
+        "driver_rear": false,
+        "passenger_front": false,
+        "passenger_rear": false
+      },
+      "config": {
+        "color": "Red",
+        "color_name": "Red Multicoat",
+        "wheels": "Stiletto20DarkSquare",
+        "spoiler": "Passive",
+        "roof_color": "Glass"
+      }
+    }
+  }
+}

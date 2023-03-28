@@ -18,12 +18,7 @@ class ApiService {
         case networkError(error: NSError)
         case authenticationRequired
         case authenticationFailed
-        case tokenRevoked
-        case noTokenToRefresh
-        case tokenRefreshFailed
-        case invalidOptionsForCommand
         case failedToParseData
-        case failedToReloadVehicle
         case internalError
     }
     
@@ -51,7 +46,6 @@ class ApiService {
         return request
     }
     
-    @available(macOS 10.15, *)
     func performRequest<ReturnType: Decodable>(
         _ endpoint: String
     ) async throws -> ReturnType {
@@ -101,11 +95,9 @@ class ApiService {
             }
         } else {
             let objectString = String.init(data: data, encoding: String.Encoding.utf8) ?? "No Body"
+            
             print("RESPONSE BODY ERROR: \(objectString)\n")
-            if let wwwAuthenticate = httpResponse.allHeaderFields["Www-Authenticate"] as? String,
-               wwwAuthenticate.contains("invalid_token") {
-                throw SwiftScopeError.tokenRevoked
-            } else if httpResponse.allHeaderFields["Www-Authenticate"] != nil, httpResponse.statusCode == 401 {
+            if httpResponse.statusCode == 401 {
                 throw SwiftScopeError.authenticationFailed
             } else {
                 throw SwiftScopeError.networkError(error: NSError(domain: "SwiftScopeError", code: httpResponse.statusCode, userInfo: nil))
