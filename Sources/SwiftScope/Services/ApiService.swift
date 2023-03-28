@@ -9,9 +9,11 @@ import Foundation
 
 class ApiService {
     private let decoder = JSONDecoder()
+    public var apiKey: String?
     
-    init() {
+    init(apiKey: String? = nil) {
         // self.decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601Full)
+        self.apiKey = apiKey
     }
 
     public enum SwiftScopeError: Error, Equatable {
@@ -23,7 +25,16 @@ class ApiService {
     }
     
     func buildRequest(endpoint: String, method: String = "GET", parameters: Any? = nil) -> URLRequest {
-        var request = URLRequest(url: URL(string: "\(ApiConfiguration.BaseUrl)\(endpoint)")!)
+        var authSuffix = ""
+        
+        // add auth token
+        if let apiKey = self.apiKey {
+            authSuffix = "?apiKey=\(apiKey)"
+        }
+        
+        let fullUrl = URL(string: "\(ApiConfiguration.BaseUrl)\(endpoint)\(authSuffix)")!
+        
+        var request = URLRequest(url: fullUrl)
         request.httpMethod = method
         
         if let parameters = parameters {
@@ -37,11 +48,6 @@ class ApiService {
         // set json as content type for requests & responses
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        // add auth token
-        /*if let apiToken = self.keychainService.apiToken {
-            request.setValue("Bearer \(apiToken)", forHTTPHeaderField: "Authorization")
-        }*/
         
         return request
     }

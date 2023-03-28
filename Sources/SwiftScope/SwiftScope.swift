@@ -15,12 +15,15 @@ public struct SwiftScope {
         self.apiService = ApiService()
     }
     
+    public func setApiKey(apiKey: String?) {
+        self.apiService.apiKey = apiKey
+    }
+    
     /**
     Fetchs the basic summary of a vehicle (available for public vehicles as well)
     - returns: BasicVehicle.
     */
     public func getBasicVehicle(vehicleId: String) async throws -> BasicVehicle {
-        // _ = try await checkAuthentication()
         let endpoint = "/vehicle/\(vehicleId)"
         let response: JsonResponse<BasicVehicle> = try await self.apiService.performRequest(endpoint)
         
@@ -31,8 +34,23 @@ public struct SwiftScope {
     Fetchs details about a specific driving session
     - returns: DrivingSession.
     */
+    public func getDrivingSessions(vehicleId: String, page: Int? = nil) async throws -> PaginatedJsonResponse<DrivingSession> {
+        var pageSuffix = ""
+        if let page = page {
+            pageSuffix = "&page=\(page)"
+        }
+        let endpoint = "/vehicle/\(vehicleId)/drives\(pageSuffix)"
+        
+        let response: JsonResponse<PaginatedJsonResponse<DrivingSession>> = try await self.apiService.performRequest(endpoint)
+                                    
+        return response.response
+    }
+    
+    /**
+    Fetchs details about a specific driving session
+    - returns: DrivingSession.
+    */
     public func getDrivingSession(vehicleId: String, driveId: Int) async throws -> DrivingSession {
-        // _ = try await checkAuthentication()
         let endpoint = "/vehicle/\(vehicleId)/drive/\(driveId)"
         let response: JsonResponse<DrivingSession> = try await self.apiService.performRequest(endpoint)
         

@@ -15,7 +15,7 @@ public struct DrivingSession: Codable {
     var distance          : String
     var duration          : Int
     var avgSpeed          : Int
-    var efficiency        : Int
+    var efficiency        : Int?
     var batteryLevelStart : Int
     var batteryRangeStart : String
     var batteryLevelEnd   : Int
@@ -31,7 +31,7 @@ public struct DrivingSession: Codable {
     var importId          : String?
     var createdAt         : String
     var updatedAt         : String
-    var progress          : [Progress]
+    var progress          : [Progress]?
     
     enum CodingKeys: String, CodingKey {
         case id
