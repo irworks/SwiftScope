@@ -8,17 +8,29 @@ This library is built using `async` `await` syntax.
 
 ## Setup
 ```swift
-// init the api
+// init the vehicle api
 let swiftScope = SwiftScope()
 swiftScope.setApiKey("yourapikey")
+
+// init (if needed) the teslapedia api (software versions)
+let teslapedia = Teslapedia() 
 ```
 
-### Fetch your vehicle
+## Usage
+### Vehicle API
+Get details about a vehicle and it's driving/charging sessions.
+
+#### Fetch a vehicle
 ```swift
 let vehicle: BasicVehicle = try await swiftScope.getBasicVehicle(vehicleId: "corsair")
 ```
 
-### Fetch driving sessions
+#### Fetch vehicle state (`offline`, `online`, `asleep`)
+```swift
+let state = try await swiftScope.getBasicVehicleState(vehicleId: "corsair")
+```
+
+#### Fetch driving sessions
 This data is paginated, after requesting without parameters you can retrieve the `nextPage` and `prevPage` properties.
 ```swift
 let drives: PaginatedJsonResponse<DrivingSession> = try await swiftScope.getDrivingSessions(vehicleId: "corsair")
@@ -29,4 +41,12 @@ print(drives.prevPage) // will print the previous page index
 
 // request the next page
 let moreDrives: PaginatedJsonResponse<DrivingSession> = try await swiftScope.getDrivingSessions(vehicleId: "corsair", page: drives.nextPage)
+```
+
+### Teslapedia API
+Get a list of known software updates and their feature lists.
+
+#### Fetch a list of software versions
+```swift
+let softwareVersions: [String] = try await service.getSoftwareVersions()
 ```
