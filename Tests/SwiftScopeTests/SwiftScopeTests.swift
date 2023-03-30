@@ -1,19 +1,7 @@
 import XCTest
 @testable import SwiftScope
-import OHHTTPStubs
-import OHHTTPStubsSwift
 
-final class SwiftScopeTests: XCTestCase {
-    private let headers = ["Content-Type": "application/json"]
-    
-    private func setupStub(responseFile: String, uri: String) {
-        let path = OHPathForFileInBundle(responseFile, Bundle.module)
-        
-        _ = stub(condition: isPath(uri)) {
-            _ in
-            return fixture(filePath: path!, headers: self.headers)
-        }
-    }
+final class SwiftScopeTests: ApiTestCase {
     
     func testGetBasiceVehicle() async throws {
         self.setupStub(responseFile: "BasicVehicle.json", uri: "/api/vehicle/corsair")
