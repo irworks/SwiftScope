@@ -24,4 +24,15 @@ public struct Teslapedia {
         
         return response.response
     }
+    
+    /**
+    Gets a details about a specific software version
+    - returns: SoftwareVersion
+    */
+    public func getSoftwareVersion(version: String) async throws -> SoftwareVersion {
+        let endpoint = "/software/\(version)"
+        let response: JsonResponse<SoftwareVersion> = try await self.apiService.performRequest(endpoint)
+        
+        return response.response
+    }
 }

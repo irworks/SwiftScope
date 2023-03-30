@@ -8,30 +8,30 @@
 import Foundation
 
 public struct DrivingSession: Codable {
-    var id                : Int
-    var vehicleId         : Int
-    var name              : String?
-    var description       : String?
-    var distance          : String
-    var duration          : Int
-    var avgSpeed          : Int
-    var efficiency        : Int?
-    var batteryLevelStart : Int
-    var batteryRangeStart : String
-    var batteryLevelEnd   : Int
-    var batteryRangeEnd   : String
-    var latitudeStart     : String
-    var longitudeStart    : String
-    var latitudeEnd       : String
-    var longitudeEnd      : String
-    var isPrivate         : Int
-    var type              : String
-    var valet             : Int
-    var hideSpeeding      : Int
-    var importId          : String?
-    var createdAt         : String
-    var updatedAt         : String
-    var progress          : [Progress]?
+    public var id                : Int
+    public var vehicleId         : Int
+    public var name              : String?
+    public var description       : String?
+    public var distance          : String
+    public var duration          : Int
+    public var avgSpeed          : Int
+    public var efficiency        : Int?
+    public var batteryLevelStart : Int
+    public var batteryRangeStart : String
+    public var batteryLevelEnd   : Int
+    public var batteryRangeEnd   : String
+    public var latitudeStart     : String
+    public var longitudeStart    : String
+    public var latitudeEnd       : String
+    public var longitudeEnd      : String
+    public var isPrivate         : Int
+    public var type              : String
+    public var valet             : Int
+    public var hideSpeeding      : Int
+    public var importId          : String?
+    public var createdAt         : String
+    public var updatedAt         : String
+    public var progress          : [Progress]?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -62,26 +62,26 @@ public struct DrivingSession: Codable {
 }
 
 public struct Progress: Codable {
-    var id                   : Int
-    var heading              : Int
-    var latitude             : String
-    var longitude            : String
-    var odometer             : String
-    var shiftState           : String?
-    var power                : Int?
-    var speed                : Int?
-    var batteryLevel         : Int
-    var usableBatteryLevel   : Int
-    var batteryRange         : String
-    var estBatteryRange      : String
-    var fanStatus            : String
-    var insideTemp           : String
-    var outsideTemp          : String
-    var isAutoConditioningOn : Int
-    var isClimateOn          : Int
-    var isImported           : Int
-    var createdAt            : String
-    var updatedAt            : String
+    public var id                   : Int
+    public var heading              : Int
+    public var latitude             : String
+    public var longitude            : String
+    public var odometer             : String
+    public var shiftState           : String?
+    public var power                : Int?
+    public var speed                : Int?
+    public var batteryLevel         : Int
+    public var usableBatteryLevel   : Int
+    public var batteryRange         : String
+    public var estBatteryRange      : String
+    public var fanStatus            : String
+    public var insideTemp           : String
+    public var outsideTemp          : String
+    public var isAutoConditioningOn : Int
+    public var isClimateOn          : Int
+    public var isImported           : Int
+    public var createdAt            : String
+    public var updatedAt            : String
     
     enum CodingKeys: String, CodingKey {
         

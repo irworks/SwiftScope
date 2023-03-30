@@ -119,13 +119,13 @@ public struct Statistics: Codable {
 }
 
 public struct Vehicle : Codable {
-    let locked : Bool
-    let sentryMode : Bool?
-    let latitude : String?
-    let longitude : String?
-    let isUserPresent : Bool
-    let windows : Windows?
-    let config : VehicleConfig?
+    public let locked : Bool
+    public let sentryMode : Bool?
+    public let latitude : String?
+    public let longitude : String?
+    public let isUserPresent : Bool
+    public let windows : Windows?
+    public let config : VehicleConfig?
 
     enum CodingKeys: String, CodingKey {
         case locked
@@ -139,10 +139,10 @@ public struct Vehicle : Codable {
 }
 
 public struct Windows : Codable {
-    let driverFront : Bool?
-    let driverRear : Bool?
-    let passengerFront : Bool?
-    let passengerRear : Bool?
+    public let driverFront : Bool?
+    public let driverRear : Bool?
+    public let passengerFront : Bool?
+    public let passengerRear : Bool?
 
     enum CodingKeys: String, CodingKey {
         case driverFront = "driver_front"
@@ -153,11 +153,11 @@ public struct Windows : Codable {
 }
 
 public struct VehicleConfig : Codable {
-    let color : String?
-    let colorName : String?
-    let wheels : String?
-    let spoiler : String?
-    let roofColor : String?
+    public let color : String?
+    public let colorName : String?
+    public let wheels : String?
+    public let spoiler : String?
+    public let roofColor : String?
 
     enum CodingKeys: String, CodingKey {
         case color

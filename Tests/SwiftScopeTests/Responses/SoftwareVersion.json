@@ -1,0 +1,107 @@
+{
+  "code": 200,
+  "response": {
+    "version": "2023.6.9",
+    "features": [],
+    "early_access": 0,
+    "fsd": null,
+    "created_at": "2023-03-24T02:59:08.000000Z",
+    "updated_at": "2023-03-24T03:45:06.000000Z",
+    "commit": "8b27e21d9137",
+    "totalCount": 16424,
+    "count": 196,
+    "percentage": 1.2,
+    "year": "2023",
+    "week": "6",
+    "major": "9",
+    "minor": null,
+    "pending": {
+      "waiting": 8,
+      "available": 1,
+      "downloading": 1,
+      "installing": 0
+    },
+    "pendingVersions": {
+      "2023.2.10 4aa2cd7429ab": 2,
+      "2023.2.0.5 f93797d0a5df": 1,
+      "2023.6.8 ca519fc096f3": 8,
+      "2023.2.12 a734fb860b32": 3,
+      "2022.44.200 bbeac43f4972": 1
+    },
+    "countries": [
+      {
+        "country": "us",
+        "count": 102
+      },
+      {
+        "country": "de",
+        "count": 32
+      },
+      {
+        "country": "fr",
+        "count": 11
+      },
+      {
+        "country": "gb",
+        "count": 11
+      },
+      {
+        "country": "ca",
+        "count": 9
+      },
+      {
+        "country": null,
+        "count": 5
+      },
+      {
+        "country": "nl",
+        "count": 4
+      },
+      {
+        "country": "be",
+        "count": 3
+      },
+      {
+        "country": "dk",
+        "count": 3
+      },
+      {
+        "country": "il",
+        "count": 2
+      },
+      {
+        "country": "pr",
+        "count": 1
+      },
+      {
+        "country": "cz",
+        "count": 1
+      },
+      {
+        "country": "gr",
+        "count": 1
+      },
+      {
+        "country": "es",
+        "count": 1
+      },
+      {
+        "country": "it",
+        "count": 1
+      },
+      {
+        "country": "at",
+        "count": 1
+      },
+      {
+        "country": "is",
+        "count": 1
+      },
+      {
+        "country": "ae",
+        "count": 1
+      }
+    ],
+    "firstSpotted": "2023-03-24T02:59:08.000000Z"
+  }
+}
