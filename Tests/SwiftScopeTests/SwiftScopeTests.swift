@@ -6,13 +6,17 @@ import OHHTTPStubsSwift
 final class SwiftScopeTests: XCTestCase {
     private let headers = ["Content-Type": "application/json"]
     
-    func testGetBasiceVehicle() async throws {
-        let path = OHPathForFileInBundle("BasicVehicle.json", Bundle.module)
+    private func setupStub(responseFile: String, uri: String) {
+        let path = OHPathForFileInBundle(responseFile, Bundle.module)
         
-        _ = stub(condition: isPath("/api/vehicle/corsair")) {
+        _ = stub(condition: isPath(uri)) {
             _ in
             return fixture(filePath: path!, headers: self.headers)
         }
+    }
+    
+    func testGetBasiceVehicle() async throws {
+        self.setupStub(responseFile: "BasicVehicle.json", uri: "/api/vehicle/corsair")
                 
         let service = SwiftScope()
         let vehicle: BasicVehicle = try await service.getBasicVehicle(vehicleId: "corsair")
@@ -25,13 +29,18 @@ final class SwiftScopeTests: XCTestCase {
         XCTAssertEqual("90.65", vehicle.battery.range)
     }
     
-    func testGetBasiceVehicleWithAuth() async throws {
-        let path = OHPathForFileInBundle("BasicVehicleAuthenticated.json", Bundle.module)
+    func testGetVehicleState() async throws {
+        self.setupStub(responseFile: "VehicleState.json", uri: "/api/vehicle/corsair/state")
+                
+        let service = SwiftScope()
+        let state = try await service.getVehicleState(vehicleId: "corsair")
         
-        _ = stub(condition: isPath("/api/vehicle/corsair")) {
-            _ in
-            return fixture(filePath: path!, headers: self.headers)
-        }
+        XCTAssertEqual("asleep", state)
+    }
+    
+    
+    func testGetBasiceVehicleWithAuth() async throws {
+        self.setupStub(responseFile: "BasicVehicleAuthenticated.json", uri: "/api/vehicle/corsair")
                 
         let service = SwiftScope()
         let vehicle: BasicVehicle = try await service.getBasicVehicle(vehicleId: "corsair")
@@ -52,13 +61,8 @@ final class SwiftScopeTests: XCTestCase {
     }
 
     func testGetDrivingSessions() async throws {
-        let path = OHPathForFileInBundle("DrivingSessions.json", Bundle.module)
-        
-        _ = stub(condition: isPath("/api/vehicle/corsair/drives")) {
-            _ in
-            return fixture(filePath: path!, headers: self.headers)
-        }
-                
+        self.setupStub(responseFile: "DrivingSessions.json", uri: "/api/vehicle/corsair/drives")
+
         let service = SwiftScope()
         let drives: PaginatedJsonResponse<DrivingSession> = try await service.getDrivingSessions(vehicleId: "corsair")
         
@@ -71,12 +75,7 @@ final class SwiftScopeTests: XCTestCase {
     }
     
     func testGetDrivingSession() async throws {
-        let path = OHPathForFileInBundle("DrivingSession.json", Bundle.module)
-        
-        _ = stub(condition: isPath("/api/vehicle/corsair/drive/3685708")) {
-            _ in
-            return fixture(filePath: path!, headers: self.headers)
-        }
+        self.setupStub(responseFile: "DrivingSession.json", uri: "/api/vehicle/corsair/drive/3685708")
                 
         let service = SwiftScope()
         let drive: DrivingSession = try await service.getDrivingSession(vehicleId: "corsair", driveId: 3685708)

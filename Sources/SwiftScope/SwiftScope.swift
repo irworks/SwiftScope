@@ -30,6 +30,17 @@ public struct SwiftScope {
     }
     
     /**
+    Fetchs the basic summary of a vehicle (available for public vehicles as well)
+    - returns: BasicVehicle.
+    */
+    public func getVehicleState(vehicleId: String) async throws -> String {
+        let endpoint = "/vehicle/\(vehicleId)/state"
+        let response: JsonResponse<String> = try await self.apiService.performRequest(endpoint)
+        
+        return response.response
+    }
+    
+    /**
     Fetchs details about a specific driving session
     - returns: DrivingSession.
     */
