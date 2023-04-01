@@ -31,7 +31,7 @@ public struct DrivingSession: Codable {
     public var importId          : String?
     public var createdAt         : String
     public var updatedAt         : String
-    public var progress          : [Progress]?
+    public var progress          : [DriveProgress]?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -61,7 +61,7 @@ public struct DrivingSession: Codable {
     }
 }
 
-public struct Progress: Codable {
+public struct DriveProgress: Codable {
     public var id                   : Int
     public var heading              : Int
     public var latitude             : String
@@ -84,7 +84,6 @@ public struct Progress: Codable {
     public var updatedAt            : String
     
     enum CodingKeys: String, CodingKey {
-        
         case id                   = "id"
         case heading              = "heading"
         case latitude             = "latitude"

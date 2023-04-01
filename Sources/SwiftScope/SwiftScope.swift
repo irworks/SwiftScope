@@ -41,8 +41,8 @@ public struct SwiftScope {
     }
     
     /**
-    Fetchs details about a specific driving session
-    - returns: DrivingSession.
+    Fetchs a paginated list of driving sessions
+    - returns: PaginatedJsonResponse of DrivingSessions.
     */
     public func getDrivingSessions(vehicleId: String, page: Int? = nil) async throws -> PaginatedJsonResponse<DrivingSession> {
         var pageSuffix = ""
@@ -75,5 +75,42 @@ public struct SwiftScope {
         guard let vehicleId = self.currentVehicle?.publicId else {throw SwiftScopeError.noVehicleSelected}
         
         return try await self.getDrivingSession(vehicleId: vehicleId, driveId: driveId)
+    }
+    
+    /**
+    Fetchs a paginated list of charging sessions
+    - returns: PaginatedJsonResponse of ChargingSessions.
+    */
+    public func getChargingSessions(vehicleId: String, page: Int? = nil) async throws -> PaginatedJsonResponse<ChargingSession> {
+        var pageSuffix = ""
+        if let page = page {
+            pageSuffix = "&page=\(page)"
+        }
+        let endpoint = "/vehicle/\(vehicleId)/charges\(pageSuffix)"
+        
+        let response: JsonResponse<PaginatedJsonResponse<ChargingSession>> = try await self.apiService.performRequest(endpoint)
+                                    
+        return response.response
+    }
+    
+    /**
+    Fetchs details about a specific charging session
+    - returns: ChargingSession.
+    */
+    public func getChargingSession(vehicleId: String, chargeId: Int) async throws -> ChargingSession {
+        let endpoint = "/vehicle/\(vehicleId)/charge/\(chargeId)"
+        let response: JsonResponse<ChargingSession> = try await self.apiService.performRequest(endpoint)
+        
+        return response.response
+    }
+    
+    /**
+    Fetchs details about a specific charging session
+    - returns: ChargingSession.
+    */
+    public func getChargingSession(chargeId: Int) async throws -> ChargingSession {
+        guard let vehicleId = self.currentVehicle?.publicId else {throw SwiftScopeError.noVehicleSelected}
+        
+        return try await self.getChargingSession(vehicleId: vehicleId, chargeId: chargeId)
     }
 }

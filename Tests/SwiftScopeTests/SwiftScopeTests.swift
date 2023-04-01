@@ -74,4 +74,30 @@ final class SwiftScopeTests: ApiTestCase {
         XCTAssertEqual(1140, drive.duration)
         XCTAssertEqual("D", drive.progress![0].shiftState)
     }
+    
+    func testGetChargingSessions() async throws {
+        self.setupStub(responseFile: "ChargingSessions.json", uri: "/api/vehicle/corsair/charges")
+
+        let service = SwiftScope()
+        let charges: PaginatedJsonResponse<ChargingSession> = try await service.getChargingSessions(vehicleId: "corsair")
+        
+        XCTAssertEqual(20, charges.currentPage)
+        XCTAssertEqual(21, charges.nextPage)
+        XCTAssertEqual(19, charges.prevPage)
+        
+        XCTAssertEqual(411153, charges.data[0].id)
+        XCTAssertEqual(1012, charges.data[0].duration)
+    }
+    
+    func testGetChargingSession() async throws {
+        self.setupStub(responseFile: "ChargingSession.json", uri: "/api/vehicle/corsair/charge/411153")
+                
+        let service = SwiftScope()
+        let charge: ChargingSession = try await service.getChargingSession(vehicleId: "corsair", chargeId: 411153)
+        
+        XCTAssertNil(charge.name)
+        XCTAssertEqual(49, charge.batteryLevelStart)
+        XCTAssertEqual(73, charge.batteryLevelEnd)
+        XCTAssertEqual("17.69", charge.chargeEnergyCalculated)
+    }
 }

@@ -15,9 +15,9 @@ public struct BasicVehicle: Codable {
     public var year: String?
     public var trim: String?
     public var carVersion: String
-    public var battery: Battery
-    public var climate: Climate
-    public var statistics: Statistics
+    public var battery: VehicleBattery
+    public var climate: VehicleClimate
+    public var statistics: VehicleStatistics
     public var vehicle: Vehicle?
     
     public var renderUrl: String?
@@ -38,7 +38,7 @@ public struct BasicVehicle: Codable {
     }
 }
 
-public struct Battery: Codable {
+public struct VehicleBattery: Codable {
     public var level: Int
     public var range: String
     public var chargeLimitSoC: Int?
@@ -58,14 +58,14 @@ public struct Battery: Codable {
     }
 }
 
-public struct Climate: Codable {
+public struct VehicleClimate: Codable {
     public var inside: Double
     public var outside: Double
     public var isAutoConditioningOn: Bool?
     public var isClimateOn: Bool?
     public var isFrontDefrosterOn: Bool?
     public var isRearDefrosterOn: Bool?
-    public var seatHeaters: SeatHeaters?
+    public var seatHeaters: VehicleSeatHeaters?
     
     enum CodingKeys: String, CodingKey {
         case inside
@@ -78,7 +78,7 @@ public struct Climate: Codable {
     }
 }
 
-public struct SeatHeaters: Codable {
+public struct VehicleSeatHeaters: Codable {
     public var left: Int
     public var right: Int
     public var leftRear: Int
@@ -94,7 +94,7 @@ public struct SeatHeaters: Codable {
     }
 }
 
-public struct Statistics: Codable {
+public struct VehicleStatistics: Codable {
     public var drives: Int
     public var distance: Double
     public var drivesDuration: Int
@@ -124,7 +124,7 @@ public struct Vehicle : Codable {
     public let latitude : String?
     public let longitude : String?
     public let isUserPresent : Bool
-    public let windows : Windows?
+    public let windows : VehicleWindows?
     public let config : VehicleConfig?
 
     enum CodingKeys: String, CodingKey {
@@ -138,7 +138,7 @@ public struct Vehicle : Codable {
     }
 }
 
-public struct Windows : Codable {
+public struct VehicleWindows : Codable {
     public let driverFront : Bool?
     public let driverRear : Bool?
     public let passengerFront : Bool?

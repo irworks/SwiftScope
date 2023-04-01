@@ -30,10 +30,12 @@ let vehicle: BasicVehicle = try await swiftScope.getBasicVehicle(vehicleId: "cor
 let state = try await swiftScope.getBasicVehicleState(vehicleId: "corsair")
 ```
 
-#### Fetch driving sessions
+#### Fetch driving/charging sessions
 This data is paginated, after requesting without parameters you can retrieve the `nextPage` and `prevPage` properties.
 ```swift
 let drives: PaginatedJsonResponse<DrivingSession> = try await swiftScope.getDrivingSessions(vehicleId: "corsair")
+
+let charges: PaginatedJsonResponse<ChargingSession> = try await swiftScope.getChargingSessions(vehicleId: "corsair")
 
 print(drives.currentPage) // will print the current page index
 print(drives.nextPage) // will print the next page index
@@ -48,5 +50,5 @@ Get a list of known software updates and their feature lists.
 
 #### Fetch a list of software versions
 ```swift
-let softwareVersions: [String] = try await service.getSoftwareVersions()
+let softwareVersions: [String] = try await teslapedia.getSoftwareVersions()
 ```
