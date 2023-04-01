@@ -24,20 +24,26 @@ class ApiService {
         case internalError
     }
     
-    func buildRequest(endpoint: String, method: String = "GET", parameters: Any? = nil) -> URLRequest {
-        var authSuffix = ""
+    func buildUrl(endpoint: String, parameters: [URLQueryItem]? = nil) -> URL {
+        var url = URLComponents(string: "\(ApiConfiguration.BaseUrl)\(endpoint)")!
         
-        // add auth token
-        if let apiKey = self.apiKey {
-            authSuffix = "?apiKey=\(apiKey)"
+        if var parameters = parameters {
+            
+            if let apiKey = self.apiKey {
+                parameters.append(URLQueryItem(name: "api_key", value: apiKey))
+            }
+            
+            url.queryItems = parameters
         }
         
-        let fullUrl = URL(string: "\(ApiConfiguration.BaseUrl)\(endpoint)\(authSuffix)")!
-        
-        var request = URLRequest(url: fullUrl)
+        return url.url!
+    }
+    
+    func buildRequest(endpoint: String, method: String = "GET", parameters: Any? = nil) -> URLRequest {
+        var request = URLRequest(url: self.buildUrl(endpoint: endpoint, parameters: parameters as? [URLQueryItem]))
         request.httpMethod = method
         
-        if let parameters = parameters {
+        if method != "GET", let parameters = parameters {
             do {
                 request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .fragmentsAllowed)
             } catch let error {
@@ -53,9 +59,9 @@ class ApiService {
     }
     
     func performRequest<ReturnType: Decodable>(
-        _ endpoint: String
+        _ endpoint: String, method: String = "GET", parameters: Any? = nil
     ) async throws -> ReturnType {
-        let request = self.buildRequest(endpoint: endpoint)
+        let request = self.buildRequest(endpoint: endpoint, method: method, parameters: parameters)
 
         let data: Data
         let response: URLResponse
@@ -76,33 +82,18 @@ class ApiService {
 
         guard let httpResponse = response as? HTTPURLResponse else { throw SwiftScopeError.failedToParseData }
 
-        var responseString = "\nRESPONSE: \(String(describing: httpResponse.url))"
-        responseString += "\nSTATUS CODE: \(httpResponse.statusCode)"
-        if let headers = httpResponse.allHeaderFields as? [String: String] {
-            responseString += "\nHEADERS: [\n"
-            headers.forEach {(key: String, value: String) in
-                responseString += "\"\(key)\": \"\(value)\"\n"
-            }
-            responseString += "]"
-        }
-
-        print(responseString)
-
         if case 200..<300 = httpResponse.statusCode {
             do {
-                let objectString = String.init(data: data, encoding: String.Encoding.utf8) ?? "No Body"
-                print("RESPONSE BODY: \(objectString)\n")
-
                 let mapped = try self.decoder.decode(ReturnType.self, from: data)
                 return mapped
             } catch {
-                print("ERROR: \(error)")
+                print("[SwiftScope] Unable to parse: \(error)")
                 throw SwiftScopeError.failedToParseData
             }
         } else {
             let objectString = String.init(data: data, encoding: String.Encoding.utf8) ?? "No Body"
             
-            print("RESPONSE BODY ERROR: \(objectString)\n")
+            print("[SwiftScope] Error from api: \(objectString)\n")
             if httpResponse.statusCode == 401 {
                 throw SwiftScopeError.authenticationFailed
             } else {

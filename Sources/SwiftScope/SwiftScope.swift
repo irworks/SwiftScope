@@ -45,13 +45,13 @@ public struct SwiftScope {
     - returns: PaginatedJsonResponse of DrivingSessions.
     */
     public func getDrivingSessions(vehicleId: String, page: Int? = nil) async throws -> PaginatedJsonResponse<DrivingSession> {
-        var pageSuffix = ""
+        var parameters: [URLQueryItem]? = nil
         if let page = page {
-            pageSuffix = "&page=\(page)"
+            parameters = [URLQueryItem(name: "page", value: "\(page)")]
         }
-        let endpoint = "/vehicle/\(vehicleId)/drives\(pageSuffix)"
+        let endpoint = "/vehicle/\(vehicleId)/drives"
         
-        let response: JsonResponse<PaginatedJsonResponse<DrivingSession>> = try await self.apiService.performRequest(endpoint)
+        let response: JsonResponse<PaginatedJsonResponse<DrivingSession>> = try await self.apiService.performRequest(endpoint, method: "GET", parameters: parameters)
                                     
         return response.response
     }
@@ -82,13 +82,13 @@ public struct SwiftScope {
     - returns: PaginatedJsonResponse of ChargingSessions.
     */
     public func getChargingSessions(vehicleId: String, page: Int? = nil) async throws -> PaginatedJsonResponse<ChargingSession> {
-        var pageSuffix = ""
+        var parameters: [URLQueryItem]? = nil
         if let page = page {
-            pageSuffix = "&page=\(page)"
+            parameters = [URLQueryItem(name: "page", value: "\(page)")]
         }
-        let endpoint = "/vehicle/\(vehicleId)/charges\(pageSuffix)"
+        let endpoint = "/vehicle/\(vehicleId)/charges"
         
-        let response: JsonResponse<PaginatedJsonResponse<ChargingSession>> = try await self.apiService.performRequest(endpoint)
+        let response: JsonResponse<PaginatedJsonResponse<ChargingSession>> = try await self.apiService.performRequest(endpoint, method: "GET", parameters: parameters)
                                     
         return response.response
     }
