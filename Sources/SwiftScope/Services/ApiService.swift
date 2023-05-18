@@ -42,7 +42,12 @@ class ApiService {
     }
     
     func buildRequest(endpoint: String, method: String = "GET", parameters: Any? = nil) -> URLRequest {
-        var request = URLRequest(url: self.buildUrl(endpoint: endpoint, parameters: parameters as? [URLQueryItem]))
+        var urlParmaters: [URLQueryItem]? = []
+        if let parsedParameters = parameters as? [URLQueryItem] {
+            urlParmaters = parsedParameters
+        }
+        
+        var request = URLRequest(url: self.buildUrl(endpoint: endpoint, parameters: urlParmaters))
         request.httpMethod = method
         
         if method != "GET", let parameters = parameters {
