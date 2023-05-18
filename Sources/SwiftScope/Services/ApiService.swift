@@ -24,7 +24,7 @@ class ApiService {
         case internalError
     }
     
-    func buildUrl(endpoint: String, parameters: [URLQueryItem]? = nil) -> URL {
+    func buildUrl(endpoint: String, parameters: [URLQueryItem]? = []) -> URL {
         var url = URLComponents(string: "\(ApiConfiguration.BaseUrl)\(endpoint)")!
         
         if var parameters = parameters {
@@ -33,7 +33,9 @@ class ApiService {
                 parameters.append(URLQueryItem(name: "api_key", value: apiKey))
             }
             
-            url.queryItems = parameters
+            if !parameters.isEmpty {
+                url.queryItems = parameters
+            }
         }
         
         return url.url!

@@ -20,5 +20,7 @@ final class ApiServiceTests: XCTestCase {
         apiService.apiKey = "tester123"
         
         XCTAssertEqual("https://teslascope.com/api/vehicle/sub/path/and/one/more?param=123&api_key=tester123", apiService.buildUrl(endpoint: "/vehicle/sub/path/and/one/more", parameters: [URLQueryItem(name: "param", value: "123")]).absoluteString)
+        
+        XCTAssertEqual("https://teslascope.com/api/vehicle/sub/path/and/one/more?api_key=tester123", apiService.buildUrl(endpoint: "/vehicle/sub/path/and/one/more").absoluteString)
     }
 }
