@@ -121,8 +121,8 @@ public struct VehicleStatistics: Codable {
 public struct Vehicle : Codable {
     public let locked : Bool
     public let sentryMode : Bool?
-    public let latitude : String?
-    public let longitude : String?
+    public let latitude : Double?
+    public let longitude : Double?
     public let isUserPresent : Bool
     public let windows : VehicleWindows?
     public let config : VehicleConfig?
